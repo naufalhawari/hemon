@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "477008040067",
+    "project_id": "hemon-d1c02",
+    "storage_bucket": "hemon-d1c02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:477008040067:android:e58e1a13e5f5ab96258bb6",
+        "android_client_info": {
+          "package_name": "com.example.hemon"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBH5-LcGCcE6LRfrRkCIrt_NrvoQXThsjo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
