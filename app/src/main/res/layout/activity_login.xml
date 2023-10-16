@@ -9,7 +9,7 @@
     <LinearLayout
         android:id="@+id/upper_box"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="@dimen/_160sdp"
         android:background="@drawable/upper_box"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,12 +22,12 @@
         android:layout_height="wrap_content"
         android:text="HEMON"
         android:textColor="@color/white"
-        android:textSize="40sp"
+        android:textSize="@dimen/_32ssp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="@dimen/_32sdp"
         />
 
     <androidx.cardview.widget.CardView
@@ -36,17 +36,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginStart="@dimen/_32sdp"
+        android:layout_marginEnd="@dimen/_32sdp"
+        android:layout_marginTop="@dimen/_76sdp"
         app:cardCornerRadius="40dp"
         app:cardElevation="12dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="480dp"
+            android:layout_height="@dimen/_400sdp"
             android:orientation="vertical"
-            android:padding="12dp">
+            android:padding="@dimen/_12sdp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -55,9 +55,10 @@
                 android:layout_gravity="center">
 
                 <Button
-                    android:layout_width="100dp"
+                    android:id="@+id/login_button"
+                    android:layout_width="@dimen/_100sdp"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/_16ssp"
                     android:text="Login"
                     android:textAllCaps="false"
                     app:cornerRadius="40dp"
@@ -65,10 +66,11 @@
                     android:backgroundTint="@color/primary"/>
 
                 <Button
-                    android:layout_width="100dp"
+                    android:id="@+id/signup_button"
+                    android:layout_width="@dimen/_100sdp"
                     android:layout_height="wrap_content"
                     android:textColor="@color/primary"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/_16ssp"
                     android:text="Sign Up"
                     android:textAllCaps="false"
                     app:cornerRadius="40dp"
@@ -84,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Enter email"
                 android:backgroundTint="@color/secondary"
-                android:layout_margin="12dp"
+                android:layout_margin="@dimen/_12sdp"
                 />
 
             <EditText
@@ -93,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Password"
                 android:backgroundTint="@color/secondary"
-                android:layout_margin="12dp"
+                android:layout_margin="@dimen/_12sdp"
                 />
 
             <EditText
@@ -102,17 +104,19 @@
                 android:layout_height="wrap_content"
                 android:hint="Confirm Password"
                 android:backgroundTint="@color/secondary"
-                android:layout_margin="12dp"
+                android:layout_margin="@dimen/_12sdp"
+                android:visibility="gone"
                 />
 
             <Button
-                android:layout_width="240dp"
+                android:id="@+id/post_button"
+                android:layout_width="@dimen/_240sdp"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:textSize="@dimen/_16ssp"
                 android:text="Login"
                 android:textAllCaps="false"
                 app:cornerRadius="40dp"
-                android:layout_margin="12dp"
+                android:layout_margin="@dimen/_12sdp"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/primary"
                 android:elevation="8dp"/>
@@ -123,7 +127,7 @@
                 android:text="Or"
                 android:textStyle="bold"
                 android:textColor="@color/secondary"
-                android:textSize="16sp"
+                android:textSize="@dimen/_16ssp"
                 android:layout_margin="12dp"
                 android:layout_gravity="center"/>
 
