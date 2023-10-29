@@ -57,6 +57,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
+            android:id="@+id/greeting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20sdp"
@@ -72,11 +73,11 @@
             android:paddingEnd="@dimen/_20sdp"
             >
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Cari layanan dan konsultasi"
-                android:textSize="@dimen/_16ssp"
+                android:hint="Pantau kesehatanmu setiap saat dengan Hemon"
+                android:textSize="@dimen/_14ssp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:backgroundTint="@color/white"
@@ -109,6 +110,7 @@
         android:gravity="center">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/asesmen_jantung_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="20dp"
@@ -143,6 +145,7 @@
 
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/asesmen_diabetes_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="20dp"
@@ -159,7 +162,7 @@
                 <ImageView
                     android:layout_width="@dimen/_60sdp"
                     android:layout_height="@dimen/_60sdp"
-                    android:src="@drawable/ic_heart_care"
+                    android:src="@drawable/diabetes_hemon"
                     android:layout_marginStart="@dimen/_8sdp"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_8sdp"/>
@@ -176,6 +179,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/asesmen_stroke_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="20dp"
