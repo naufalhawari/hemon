@@ -71,7 +71,7 @@
                 android:layout_margin="@dimen/_4sdp"
                 android:background="@drawable/box"
                 android:orientation="vertical"
-                android:padding="@dimen/_12sdp">
+                android:padding="@dimen/_8sdp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -93,32 +93,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_4sdp"
-                android:background="@drawable/box"
-                android:orientation="vertical"
-                android:padding="@dimen/_12sdp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Jenis Kelamin"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_20ssp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/input_gender"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white"
-                    android:hint="Jawaban Anda (isi L/P)"
-                    android:textColorHint="@color/white"
-                    android:textSize="@dimen/_10ssp" />
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -126,22 +101,22 @@
                 android:layout_margin="@dimen/_4sdp"
                 android:background="@drawable/box"
                 android:orientation="vertical"
-                android:padding="@dimen/_12sdp">
+                android:padding="@dimen/_8sdp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Berat dan Tinggi Badan"
+                    android:text="Berat Badan"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_20ssp"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/input_badan"
+                    android:id="@+id/input_berat_badan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
-                    android:hint="Jawaban Anda (isi BB/TB, contoh: 80/177)"
+                    android:hint="Jawaban Anda dalam kg (contoh: 80)"
                     android:textColorHint="@color/white"
                     android:textSize="@dimen/_11ssp" />
 
@@ -153,7 +128,34 @@
                 android:layout_margin="@dimen/_4sdp"
                 android:background="@drawable/box"
                 android:orientation="vertical"
-                android:padding="@dimen/_12sdp">
+                android:padding="@dimen/_8sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tinggi Badan"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_20ssp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/input_tinggi_badan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:hint="Jawaban Anda dalam cm (contoh: 180)"
+                    android:textColorHint="@color/white"
+                    android:textSize="@dimen/_11ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4sdp"
+                android:background="@drawable/box"
+                android:orientation="vertical"
+                android:padding="@dimen/_8sdp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -174,61 +176,9 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_4sdp"
-                android:background="@drawable/box"
-                android:orientation="vertical"
-                android:padding="@dimen/_12sdp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Apakah Anda perokok aktif?"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_20ssp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/input_perokok"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white"
-                    android:hint="Jawaban Anda (isi Ya/Tidak)"
-                    android:textColorHint="@color/white"
-                    android:textSize="@dimen/_11ssp" />
 
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_4sdp"
-                android:background="@drawable/box"
-                android:orientation="vertical"
-                android:padding="@dimen/_12sdp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Apakah Anda rutin olahraga?"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_20ssp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/input_olahraga"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white"
-                    android:hint="Jawaban Anda (isi Ya/Tidak)"
-                    android:textColorHint="@color/white"
-                    android:textSize="@dimen/_11ssp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
 
     </ScrollView>
 

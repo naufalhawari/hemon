@@ -6,17 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
-
-    <ProgressBar
+    <FrameLayout
         android:id="@+id/progress_bar"
-        android:layout_width="@dimen/_36sdp"
-        android:layout_height="@dimen/_36sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:progressTint="@color/primary"
-        android:visibility="invisible"/>
+        android:visibility="invisible">
+
+        <ProgressBar
+            android:layout_width="@dimen/_36sdp"
+            android:layout_height="@dimen/_36sdp"
+            android:progressTint="@color/secondary"
+            />
+
+    </FrameLayout>
+
+
 
     <LinearLayout
         android:id="@+id/upper_box"

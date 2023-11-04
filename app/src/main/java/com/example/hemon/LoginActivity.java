@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                     binding.progressBar.setVisibility(View.VISIBLE);
                     if (binding.postButton.getText().toString().trim().equals("Login")) {
                         User user = new User(binding.emailInput.getText().toString().trim(),
-                                true, binding.passwordInput.getText().toString().trim());
+                                binding.passwordInput.getText().toString().trim());
 
                         db.collection("user")
                                 .whereEqualTo("email", user.getEmail())
@@ -109,15 +109,14 @@ public class LoginActivity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                         if (task.isSuccessful() && task.getResult().getDocuments().size() > 0){
                                             DocumentSnapshot data = task.getResult().getDocuments().get(0);
-                                            preferenceManager.putString("username", data.get("username").toString().trim());
-                                            preferenceManager.putString("email", data.get("email").toString().trim());
+                                            preferenceManager.putString("email", user.getEmail());
                                             preferenceManager.putBoolean("isLogin", true);
                                             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                             startActivity(intent);
 
                                         } else {
                                             Toast.makeText(getApplicationContext(), "Password salah atau Akun belum terdaftar",
-                                                    Toast.LENGTH_SHORT);
+                                                    Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
@@ -126,18 +125,21 @@ public class LoginActivity extends AppCompatActivity {
                             binding.passwordInput.getText().toString().trim()
                     )) {
 
+                        User user = new User(binding.emailInput.getText().toString().trim(),
+                                binding.passwordInput.getText().toString().trim(),
+                                binding.usernameInput.getText().toString().trim());
+
                         HashMap<String, Object> data = new HashMap<>();
-                        data.put("username", binding.usernameInput.getText().toString().trim());
-                        data.put("email", binding.emailInput.getText().toString().trim());
-                        data.put("password", binding.passwordInput.getText().toString().trim());
+                        data.put("username", user.getUsername());
+                        data.put("email", user.getEmail());
+                        data.put("password", user.getPassword());
 
                         db.collection("user")
                                 .add(data)
                                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentReference> task) {
-                                        preferenceManager.putString("username", data.get("username").toString().trim());
-                                        preferenceManager.putString("email", data.get("email").toString().trim());
+                                        preferenceManager.putString("email", user.getEmail());
                                         preferenceManager.putBoolean("isLogin", true);
                                         Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                         startActivity(intent);
@@ -147,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                             binding.passwordInput.getText().toString().trim()
                     )) {
                         Toast.makeText(getApplicationContext(), "Password konfirmasi salah",
-                                Toast.LENGTH_SHORT);
+                                Toast.LENGTH_SHORT).show();
                     }
 
                     binding.progressBar.setVisibility(View.INVISIBLE);

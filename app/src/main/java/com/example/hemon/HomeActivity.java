@@ -24,35 +24,31 @@ public class HomeActivity extends AppCompatActivity {
 
         binding.logoutButton.setOnClickListener(v->{
             preferenceManager.clear();
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+            this.finish();
         });
 
         binding.asesmenDiabetesButton.setOnClickListener(v->{
             Intent intent = new Intent(getApplicationContext(), AsesmenDiabetesActivity.class);
             startActivity(intent);
+            this.finish();
         });
 
         binding.asesmenJantungButton.setOnClickListener(v->{
             Intent intent = new Intent(getApplicationContext(), AsesmenJantungActivity.class);
             startActivity(intent);
+            this.finish();
         });
 
         binding.asesmenStrokeButton.setOnClickListener(v->{
             Intent intent = new Intent(getApplicationContext(), AsesmenStrokeActivity.class);
             startActivity(intent);
+            this.finish();
         });
 
-        binding.logoutButton.setOnClickListener(v->{
-            preferenceManager.clear();
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(intent);
-        });
 
-//        this.setClickListener();
+
     }
 
-//    void setClickListener(){
-//        binding.helpButton.setOnClickListener(v->{
-//
-//        });
-//    }
 }

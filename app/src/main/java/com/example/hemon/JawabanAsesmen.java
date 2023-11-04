@@ -10,7 +10,8 @@ public abstract class JawabanAsesmen {
     public int tekananDarahDia;
     public String emailPengguna;
 
-    public JawabanAsesmen(int umur, String jenisKelamin, double beratBadan, double tinggiBadan, int tekananDarahSis, int tekananDarahDia, String emailPengguna) {
+    public JawabanAsesmen(int umur, double beratBadan, double tinggiBadan,
+                          int tekananDarahSis, int tekananDarahDia, String emailPengguna) {
         this.umur = umur;
         this.jenisKelamin = jenisKelamin;
         this.beratBadan = beratBadan;

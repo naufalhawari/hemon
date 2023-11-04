@@ -1,17 +1,32 @@
 package com.example.hemon;
 
-public class AsesmenJantung extends JawabanAsesmen {
-    public boolean perokok;
-    public boolean olahraga;
 
-    public AsesmenJantung(int umur, String jenisKelamin, double beratBadan, double tinggiBadan, int tekananDarahSis, int tekananDarahDia, String emailPengguna, boolean perokok, boolean olahraga) {
-        super(umur, jenisKelamin, beratBadan, tinggiBadan, tekananDarahSis, tekananDarahDia, emailPengguna);
-        this.perokok = perokok;
-        this.olahraga = olahraga;
+
+public class AsesmenJantung extends JawabanAsesmen {
+
+    public AsesmenJantung(int umur, float beratBadan, float tinggiBadan,
+                          int tekananDarahSis, int tekananDarahDia, String emailPengguna) {
+        super(umur, beratBadan, tinggiBadan, tekananDarahSis, tekananDarahDia, emailPengguna);
     }
 
     @Override
     public String prediksi() {
-        return null;
+
+
+
+        if (tekananDarahSis <= 128) {
+
+            if(tekananDarahDia <= 5) {
+                return "negatif";
+            } else {
+                return "positif";
+            }
+
+        } else if (umur <= 58) {
+            return "negatif";
+        } else {
+            return "positif";
+        }
+
     }
 }

@@ -1,14 +1,23 @@
 package com.example.hemon;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class User {
 
     private String email;
     private String password;
     private String username;
 
-    public User(String email, boolean loginStatus, String password) {
+    public User(String email, String password) {
         this.email = email;
         this.password = password;
+        this.username = username;
+    }
+
+    public User(String email, String password, String username) {
+        this.email = email;
+        this.password = password;
+        this.username = username;
     }
 
     public String getEmail() {
@@ -34,4 +43,5 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
+
 }
