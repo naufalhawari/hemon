@@ -34,6 +34,7 @@ public class AsesmenStrokeActivity extends AppCompatActivity {
 
         binding = ActivityAsesmenStrokeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        preferenceManager = new PreferenceManager(this);
 
 
 
@@ -59,7 +60,7 @@ public class AsesmenStrokeActivity extends AppCompatActivity {
             HashMap<String, Object> data = new HashMap<>();
             data.put("emailPengguna", preferenceManager.getString("email"));
             data.put("hasilDiagnosis", asesmenStroke.prediksi());
-            data.put("jenisAsesmen", "jantung");
+            data.put("jenisAsesmen", "stroke");
             data.put("tanggalAsesmen", FieldValue.serverTimestamp());
 
             db.collection("asesmen")
@@ -68,7 +69,7 @@ public class AsesmenStrokeActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
 
-                            binding.teksDiagnosis.setText("Hasil diagnosis penyakit jantung Anda adalah" + asesmenStroke.prediksi());
+                            binding.teksDiagnosis.setText("Hasil diagnosis penyakit stroke Anda adalah " + asesmenStroke.prediksi());
                             binding.dialogDiagnosis.setVisibility(View.VISIBLE);
                         }
                     });

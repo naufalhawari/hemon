@@ -27,6 +27,7 @@ public class AsesmenDiabetesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        preferenceManager = new PreferenceManager(this);
         binding = ActivityAsesmenDiabetesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -52,7 +53,7 @@ public class AsesmenDiabetesActivity extends AppCompatActivity {
             HashMap<String, Object> data = new HashMap<>();
             data.put("emailPengguna", preferenceManager.getString("email"));
             data.put("hasilDiagnosis", asesmenDiabetes.prediksi());
-            data.put("jenisAsesmen", "jantung");
+            data.put("jenisAsesmen", "diabetes");
             data.put("tanggalAsesmen", FieldValue.serverTimestamp());
 
             db.collection("asesmen")
@@ -61,7 +62,7 @@ public class AsesmenDiabetesActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
 
-                            binding.teksDiagnosis.setText("Hasil diagnosis penyakit jantung Anda adalah" + asesmenDiabetes.prediksi());
+                            binding.teksDiagnosis.setText("Hasil diagnosis penyakit diabetes Anda adalah " + asesmenDiabetes.prediksi());
                             binding.dialogDiagnosis.setVisibility(View.VISIBLE);
                         }
                     });

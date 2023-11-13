@@ -65,7 +65,7 @@ public class AsesmenJantungActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
 
-                            binding.teksDiagnosis.setText("Hasil diagnosis penyakit jantung Anda adalah" + asesmenJantung.prediksi());
+                            binding.teksDiagnosis.setText("Hasil diagnosis penyakit jantung Anda adalah " + asesmenJantung.prediksi());
                             binding.dialogDiagnosis.setVisibility(View.VISIBLE);
                         }
                     });
