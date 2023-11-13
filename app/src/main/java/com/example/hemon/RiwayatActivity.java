@@ -73,9 +73,10 @@ public class RiwayatActivity extends AppCompatActivity {
                                         " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getMinutes());
 
 //                                Toast.makeText(getApplicationContext(), tanggalList.get(i), Toast.LENGTH_SHORT).show();
-                                adapter = new RiwayatAdapter(jenisList, diagnosisList, tanggalList, getApplicationContext());
-                                binding.riwayatRecycler.setAdapter(adapter);
+                                
                             }
+                            adapter = new RiwayatAdapter(jenisList, diagnosisList, tanggalList, getApplicationContext());
+                            binding.riwayatRecycler.setAdapter(adapter);
 
                         } else {
                             Toast.makeText(getApplicationContext(), "Anda belum melakukan asesmen.",
