@@ -109,6 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                         if (task.isSuccessful() && task.getResult().getDocuments().size() > 0){
                                             DocumentSnapshot data = task.getResult().getDocuments().get(0);
+                                            preferenceManager.putString("username", data.getString("username"));
                                             preferenceManager.putString("email", user.getEmail());
                                             preferenceManager.putBoolean("isLogin", true);
                                             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
@@ -141,6 +142,7 @@ public class LoginActivity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<DocumentReference> task) {
                                         preferenceManager.putString("email", user.getEmail());
                                         preferenceManager.putBoolean("isLogin", true);
+                                        preferenceManager.putString("username", user.getUsername());
                                         Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                         startActivity(intent);
                                     }

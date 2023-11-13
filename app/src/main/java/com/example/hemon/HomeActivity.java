@@ -47,7 +47,11 @@ public class HomeActivity extends AppCompatActivity {
             this.finish();
         });
 
-
+        binding.historyButton.setOnClickListener(v->{
+            Intent intent = new Intent(getApplicationContext(), RiwayatActivity.class);
+            startActivity(intent);
+            this.finish();
+        });
 
     }
 

@@ -2,7 +2,7 @@ package com.example.hemon;
 
 
 
-public class AsesmenDiabetes extends JawabanAsesmen{
+public class AsesmenDiabetes extends Asesmen {
 
     public AsesmenDiabetes(int umur, float beratBadan, float tinggiBadan,
                            int tekananDarahSis, int tekananDarahDia, String emailPengguna) {
@@ -12,16 +12,9 @@ public class AsesmenDiabetes extends JawabanAsesmen{
     @Override
     public String prediksi() {
 
-        float encodedGender;
-        if (jenisKelamin.equals("L")) {
-            encodedGender = 1.0f;
-        } else {
-            encodedGender = 0.0f;
-        }
+        float bmi = (float) this.getBeratBadan() * 10000.0f / (float) this.getTinggiBadan() / (float) this.getTinggiBadan();
 
-        float bmi = (float) beratBadan * 10000.0f / (float) tinggiBadan / (float) tinggiBadan;
-
-        if (umur <= 28) {
+        if (this.getUmur() <= 28) {
             if (bmi <= 26.7) {
                 return "negatif";
             } else {
@@ -29,12 +22,12 @@ public class AsesmenDiabetes extends JawabanAsesmen{
             }
         } else {
             if (bmi <= 41.75) {
-                if (tekananDarahDia <= 63) {
+                if (this.getTekananDarahDia() <= 63) {
                     return "negatif";
                 } else {
                     return "positif";
                 }
-            } else if (tekananDarahDia <= 12) {
+            } else if (this.getTekananDarahDia() <= 12) {
                 return "positif";
             } else {
                 return "negatif";

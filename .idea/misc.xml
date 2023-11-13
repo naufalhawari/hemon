@@ -8,12 +8,14 @@
         <entry key="..\:/Users/naufa/AndroidStudioProjects/Hemon/app/src/main/res/drawable/circle.xml" value="0.13" />
         <entry key="..\:/Users/naufa/AndroidStudioProjects/Hemon/app/src/main/res/drawable/ic_splash_screen_hemon.xml" value="0.1215" />
         <entry key="..\:/Users/naufa/AndroidStudioProjects/Hemon/app/src/main/res/drawable/upper_box.xml" value="0.1435" />
-        <entry key="..\:/Users/naufa/AndroidStudioProjects/Hemon/app/src/main/res/layout/activity_asesmen_diabetes.xml" value="0.1109375" />
-        <entry key="..\:/Users/naufa/AndroidStudioProjects/Hemon/app/src/main/res/layout/activity_asesmen_jantung.xml" value="0.176" />
+        <entry key="..\:/Users/naufa/AndroidStudioProjects/Hemon/app/src/main/res/layout/activity_asesmen_diabetes.xml" value="0.136" />
+        <entry key="..\:/Users/naufa/AndroidStudioProjects/Hemon/app/src/main/res/layout/activity_asesmen_jantung.xml" value="0.264" />
         <entry key="..\:/Users/naufa/AndroidStudioProjects/Hemon/app/src/main/res/layout/activity_asesmen_stroke.xml" value="0.2" />
         <entry key="..\:/Users/naufa/AndroidStudioProjects/Hemon/app/src/main/res/layout/activity_home.xml" value="0.2" />
         <entry key="..\:/Users/naufa/AndroidStudioProjects/Hemon/app/src/main/res/layout/activity_login.xml" value="0.4" />
         <entry key="..\:/Users/naufa/AndroidStudioProjects/Hemon/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/naufa/AndroidStudioProjects/Hemon/app/src/main/res/layout/activity_riwayat.xml" value="0.2" />
+        <entry key="..\:/Users/naufa/AndroidStudioProjects/Hemon/app/src/main/res/layout/card_riwayat.xml" value="0.2" />
       </map>
     </option>
   </component>
