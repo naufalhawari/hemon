@@ -36,7 +36,9 @@ android {
         viewBinding true
     }
 
-
+    aaptOptions {
+        noCompress "tflite"
+    }
 
 }
 
@@ -69,5 +71,11 @@ dependencies {
 //    implementation 'ai.onnx:onnxruntime:1.16.1'
 
     implementation 'com.microsoft.onnxruntime:onnxruntime-android:latest.release'
+
+    implementation 'com.google.firebase:firebase-ml-natural-language:22.0.1'
+    implementation 'com.google.firebase:firebase-ml-natural-language-smart-reply-model:20.0.8'
+
+//    implementation 'com.google.firebase:firebase-database:23.0.0'
+
 
 }

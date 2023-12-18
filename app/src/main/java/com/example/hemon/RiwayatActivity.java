@@ -28,9 +28,9 @@ public class RiwayatActivity extends AppCompatActivity {
 
     private PreferenceManager preferenceManager;
 
-    private ArrayList<String> jenisList = new ArrayList<>();
-    private ArrayList<String> diagnosisList = new ArrayList<>();
-    private ArrayList<String> tanggalList = new ArrayList<>();
+    private ArrayList<String> jenisList;
+    private ArrayList<String> diagnosisList;
+    private ArrayList<String> tanggalList;
 
     private RiwayatAdapter adapter;
 
@@ -44,6 +44,12 @@ public class RiwayatActivity extends AppCompatActivity {
 
         preferenceManager = new PreferenceManager(getApplicationContext());
 
+        jenisList = new ArrayList<>();
+        diagnosisList = new ArrayList<>();
+        tanggalList = new ArrayList<>();
+        adapter = new RiwayatAdapter(jenisList, diagnosisList, tanggalList, getApplicationContext());
+        binding.riwayatRecycler.setAdapter(adapter);
+
         binding.backButton.setOnClickListener(v->{
             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
             this.finish();
@@ -52,8 +58,8 @@ public class RiwayatActivity extends AppCompatActivity {
         binding.riwayatRecycler.setLayoutManager(new LinearLayoutManager(RiwayatActivity.this));
 
         db.collection("asesmen")
-                .whereEqualTo("emailPengguna", preferenceManager.getString("email"))
-//                .orderBy("tanggalAsesmen", Query.Direction.DESCENDING)
+//                .whereEqualTo("emailPengguna", preferenceManager.getString("email"))
+                .orderBy("tanggalAsesmen", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -63,20 +69,25 @@ public class RiwayatActivity extends AppCompatActivity {
 
                                 DocumentSnapshot data = task.getResult().getDocuments().get(i);
 
-                                jenisList.add(data.getString("jenisAsesmen"));
-                                diagnosisList.add(data.getString("hasilDiagnosis"));
+                                if (data.getString("emailPengguna").equals(preferenceManager.getString("email"))) {
+                                    jenisList.add(data.getString("jenisAsesmen"));
+                                    diagnosisList.add(data.getString("hasilDiagnosis"));
 
-                                Date d = data.getTimestamp("tanggalAsesmen").toDate();
+                                    Date d = data.getTimestamp("tanggalAsesmen").toDate();
 
 
-                                tanggalList.add(d.getDate() + "-" + d.getMonth() + "-" + d.getHours() +
-                                        " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getMinutes());
+                                    tanggalList.add(d.getDate() + "-" + d.getMonth() + "-" + d.getHours() +
+                                            " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getMinutes());
 
-//                                Toast.makeText(getApplicationContext(), tanggalList.get(i), Toast.LENGTH_SHORT).show();
+//                                adapter = new RiwayatAdapter(jenisList, diagnosisList, tanggalList, getApplicationContext());
+//                                binding.riwayatRecycler.setAdapter(adapter);
+
+                                    adapter.notifyDataSetChanged();
+                                }
+
                                 
                             }
-                            adapter = new RiwayatAdapter(jenisList, diagnosisList, tanggalList, getApplicationContext());
-                            binding.riwayatRecycler.setAdapter(adapter);
+
 
                         } else {
                             Toast.makeText(getApplicationContext(), "Anda belum melakukan asesmen.",

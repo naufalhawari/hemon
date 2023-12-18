@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.hemon.databinding.ActivityAsesmenJantungBinding;
 import com.example.hemon.databinding.ActivityAsesmenStrokeBinding;
@@ -35,43 +36,41 @@ public class AsesmenJantungActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.asesmenPostButton.setOnClickListener(v->{
-            AsesmenJantung asesmenJantung = new AsesmenJantung(
-                    Integer.valueOf(binding.inputUsia.getText().toString().trim()),
-                    Float.valueOf(binding.inputBeratBadan.getText().toString().trim()),
-                    Float.valueOf(binding.inputTinggiBadan.getText().toString().trim()),
-                    Integer.valueOf(binding.inputTekananDarah.getText().toString().trim().split("/")[0]),
-                    Integer.valueOf(binding.inputTekananDarah.getText().toString().trim().split("/")[1]),
-                    preferenceManager.getString("email"));
 
-//            AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-//            builder.setTitle("Hasil Diagnosis")
-//                    .setNeutralButton("OK", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialogInterface, int i) {
-//                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-//                            startActivity(intent);
-//                        }
-//                    });
+            if (!binding.inputUsia.getText().toString().trim().matches("[0-9]+")
+                    || !binding.inputBeratBadan.getText().toString().trim().matches("[0-9]+")
+                    || !binding.inputTinggiBadan.getText().toString().trim().matches("[0-9]+")
+                    || !binding.inputTekananDarah.getText().toString().trim().matches("[0-9]+/[0-9]+")) {
+                Toast.makeText(getApplicationContext(), "Pastikan jawaban Anda sesuai contoh", Toast.LENGTH_SHORT).show();
+            } else {
+                AsesmenJantung asesmenJantung = new AsesmenJantung(
+                        Integer.valueOf(binding.inputUsia.getText().toString().trim()),
+                        Float.valueOf(binding.inputBeratBadan.getText().toString().trim()),
+                        Float.valueOf(binding.inputTinggiBadan.getText().toString().trim()),
+                        Integer.valueOf(binding.inputTekananDarah.getText().toString().trim().split("/")[0]),
+                        Integer.valueOf(binding.inputTekananDarah.getText().toString().trim().split("/")[1]),
+                        preferenceManager.getString("email"));
 
-            HashMap<String, Object> data = new HashMap<>();
-            data.put("emailPengguna", preferenceManager.getString("email"));
-            data.put("hasilDiagnosis", asesmenJantung.prediksi());
-            data.put("jenisAsesmen", "jantung");
-            data.put("tanggalAsesmen", FieldValue.serverTimestamp());
 
-            db.collection("asesmen")
-                    .add(data)
-                    .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentReference> task) {
+                HashMap<String, Object> data = new HashMap<>();
+                data.put("emailPengguna", preferenceManager.getString("email"));
+                data.put("hasilDiagnosis", asesmenJantung.prediksi());
+                data.put("jenisAsesmen", "jantung");
+                data.put("tanggalAsesmen", FieldValue.serverTimestamp());
 
-                            binding.teksDiagnosis.setText("Hasil diagnosis penyakit jantung Anda adalah " + asesmenJantung.prediksi());
-                            binding.dialogDiagnosis.setVisibility(View.VISIBLE);
-                        }
-                    });
+                db.collection("asesmen")
+                        .add(data)
+                        .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentReference> task) {
 
-//            builder.show();
-//            builder.create();
+                                binding.teksDiagnosis.setText("Hasil diagnosis penyakit jantung Anda adalah " + asesmenJantung.prediksi());
+                                binding.dialogDiagnosis.setVisibility(View.VISIBLE);
+                            }
+                        });
+            }
+
+
 
         });
 
@@ -89,6 +88,11 @@ public class AsesmenJantungActivity extends AppCompatActivity {
             this.finish();
         });
 
-
+        binding.clearJawabanButton.setOnClickListener(v->{
+            binding.inputBeratBadan.setText("");
+            binding.inputUsia.setText("");
+            binding.inputTinggiBadan.setText("");
+            binding.inputTekananDarah.setText("");
+        });
     }
 }

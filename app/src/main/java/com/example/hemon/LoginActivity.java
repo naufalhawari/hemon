@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,6 +18,10 @@ import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.identity.Identity;
 import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.android.gms.auth.api.identity.SignInCredential;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -39,8 +44,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private SignInClient oneTapClient;
     private BeginSignInRequest signInRequest;
+    private GoogleSignInClient mGoogleSignInClient;
 
-    private static final int REQ_ONE_TAP = 2;  // Can be any integer unique to the Activity.
+    private static final int RC_SIGN_IN = 9001;
     private boolean showOneTapUI = true;
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -57,6 +63,13 @@ public class LoginActivity extends AppCompatActivity {
         preferenceManager = new PreferenceManager(getApplicationContext());
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         if (preferenceManager.getBoolean("isLogin")){
             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
@@ -125,28 +138,41 @@ public class LoginActivity extends AppCompatActivity {
                     } else if (binding.passwordConfirmationInput.getText().toString().trim().equals(
                             binding.passwordInput.getText().toString().trim()
                     )) {
+                        String passwordInput = binding.passwordConfirmationInput.getText().toString().trim();
+                        if (Patterns.EMAIL_ADDRESS.matcher(binding.emailInput.getText().toString().trim()).matches() &&
+                                passwordInput.matches(".*[0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+.*") && passwordInput.length() > 8) {
+                            User user = new User(binding.emailInput.getText().toString().trim(),
+                                    binding.passwordInput.getText().toString().trim(),
+                                    binding.usernameInput.getText().toString().trim());
 
-                        User user = new User(binding.emailInput.getText().toString().trim(),
-                                binding.passwordInput.getText().toString().trim(),
-                                binding.usernameInput.getText().toString().trim());
+                            HashMap<String, Object> data = new HashMap<>();
+                            data.put("username", user.getUsername());
+                            data.put("email", user.getEmail());
+                            data.put("password", user.getPassword());
 
-                        HashMap<String, Object> data = new HashMap<>();
-                        data.put("username", user.getUsername());
-                        data.put("email", user.getEmail());
-                        data.put("password", user.getPassword());
+                            db.collection("user")
+                                    .add(data)
+                                    .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentReference> task) {
+                                            preferenceManager.putString("email", user.getEmail());
+                                            preferenceManager.putBoolean("isLogin", true);
+                                            preferenceManager.putString("username", user.getUsername());
+                                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    });
+                        } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.emailInput.getText().toString().trim()).matches()){
+                            Toast.makeText(getApplicationContext(), "Email tidak sesuai format",
+                                    Toast.LENGTH_SHORT).show();
+                        } else if (passwordInput.length() <= 8) {
+                            Toast.makeText(getApplicationContext(), "Password harus lebih dari 8 karakter",
+                                    Toast.LENGTH_SHORT).show();
+                        } else if (!passwordInput.matches(".*[0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+.*")) {
+                            Toast.makeText(getApplicationContext(), "Password harus terdiri atas huruf dan angka",
+                                    Toast.LENGTH_SHORT).show();
+                        }
 
-                        db.collection("user")
-                                .add(data)
-                                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentReference> task) {
-                                        preferenceManager.putString("email", user.getEmail());
-                                        preferenceManager.putBoolean("isLogin", true);
-                                        preferenceManager.putString("username", user.getUsername());
-                                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                                        startActivity(intent);
-                                    }
-                                });
                     } else if (!binding.passwordConfirmationInput.getText().toString().trim().equals(
                             binding.passwordInput.getText().toString().trim()
                     )) {
@@ -161,88 +187,47 @@ public class LoginActivity extends AppCompatActivity {
 
         binding.googleLogin.setOnClickListener(
                 view -> {
-                    oneTapClient = Identity.getSignInClient(this);
-                    signInRequest = BeginSignInRequest.builder()
-                            .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-                                    .setSupported(true)
-                                    // Your server's client ID, not your Android client ID.
-                                    .setServerClientId(getString(R.string.default_web_client_id))
-                                    // Only show accounts previously used to sign in.
-                                    .setFilterByAuthorizedAccounts(true)
-                                    .build())
-                            // Automatically sign in when exactly one credential is retrieved.
-                            .setAutoSelectEnabled(true)
-                            .build();
-
+                    signIn();
                 }
         );
+    }
+
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode) {
-            case REQ_ONE_TAP:
-                try {
-                    SignInCredential credential = oneTapClient.getSignInCredentialFromIntent(data);
-                    String idToken = credential.getGoogleIdToken();
-                    if (idToken !=  null) {
-                        // Got an ID token from Google. Use it to authenticate
-                        // with Firebase.
-                        Log.d(TAG, "Got ID token.");
-                    }
-                } catch (ApiException e) {
-                    Log.d(TAG, e.getMessage());
-                }
-                break;
-        }
-
-        try{
-            SignInCredential googleCredential = oneTapClient.getSignInCredentialFromIntent(data);
-            String idToken = googleCredential.getGoogleIdToken();
-            if (idToken !=  null) {
-                // Got an ID token from Google. Use it to authenticate
-                // with Firebase.
-                AuthCredential firebaseCredential = GoogleAuthProvider.getCredential(idToken, null);
-                mAuth.signInWithCredential(firebaseCredential)
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d(TAG, "signInWithCredential:success");
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    preferenceManager.putString("username", user.getDisplayName());
-                                    preferenceManager.putString("email", user.getEmail());
-                                    updateUI(user);
-
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w(TAG, "signInWithCredential:failure", task.getException());
-                                    Toast.makeText(getApplicationContext(), "Login gagal, silakan coba lagi", Toast.LENGTH_SHORT)
-                                            .show();
-                                }
-                            }
-                        });
-            }
-        }
-        catch (ApiException e){
-            Log.d(TAG, e.getMessage());
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
         }
 
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+            // Signed in successfully, show authenticated UI
+            updateUI(account);
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            Log.w(TAG, "signInResult: failed code=" + e.getStatusCode());
+            Toast.makeText(this, "Terjadi eror pada sistem. mohon lakukan login ulang.", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void updateUI(FirebaseUser user) {
+
+    private void updateUI(GoogleSignInAccount user) {
         if (user != null){
+
+            preferenceManager.putString("username", user.getDisplayName().split("\\s")[0]);
+            preferenceManager.putString("email", user.getEmail());
+            preferenceManager.putBoolean("isLogin", true);
             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
             startActivity(intent);
         }

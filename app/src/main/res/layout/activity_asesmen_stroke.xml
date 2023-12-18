@@ -89,8 +89,10 @@
                     android:backgroundTint="@color/white"
                     android:hint="Jawaban Anda (contoh: 18)"
                     android:inputType="number"
+                    android:textColor="@color/white"
                     android:textColorHint="@color/white"
-                    android:textSize="@dimen/_10ssp" />
+                    android:textSize="@dimen/_10ssp"
+                    android:imeOptions="actionNext"/>
 
             </LinearLayout>
 
@@ -117,9 +119,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
+                    android:inputType="number"
                     android:hint="Jawaban Anda dalam kg (contoh: 80)"
                     android:textColorHint="@color/white"
-                    android:textSize="@dimen/_11ssp" />
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_11ssp"
+                    android:imeOptions="actionNext"/>
 
             </LinearLayout>
 
@@ -144,9 +149,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
+                    android:inputType="number"
                     android:hint="Jawaban Anda dalam cm (contoh: 180)"
                     android:textColorHint="@color/white"
-                    android:textSize="@dimen/_11ssp" />
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_11ssp"
+                    android:imeOptions="actionNext"/>
 
             </LinearLayout>
 
@@ -173,7 +181,9 @@
                     android:backgroundTint="@color/white"
                     android:hint="Jawaban Anda (Sistolik/Diatolik, contoh 120/80)"
                     android:textColorHint="@color/white"
-                    android:textSize="@dimen/_11ssp" />
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_11ssp"
+                    android:imeOptions="actionDone"/>
 
             </LinearLayout>
 
@@ -256,7 +266,6 @@
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/teks_diagnosis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_8sdp"
@@ -266,6 +275,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/teks_diagnosis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_8sdp"

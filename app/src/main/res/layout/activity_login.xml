@@ -107,7 +107,8 @@
                 android:hint="Enter email"
                 android:backgroundTint="@color/secondary"
                 android:layout_margin="@dimen/_4sdp"
-                />
+                android:inputType="textEmailAddress"
+                android:imeOptions="actionNext"/>
 
             <EditText
                 android:id="@+id/username_input"
@@ -117,7 +118,7 @@
                 android:visibility="gone"
                 android:backgroundTint="@color/secondary"
                 android:layout_margin="@dimen/_4sdp"
-                android:inputType="textEmailAddress"/>
+                android:imeOptions="actionNext"/>
 
             <EditText
                 android:id="@+id/password_input"
@@ -126,7 +127,8 @@
                 android:hint="Password"
                 android:backgroundTint="@color/secondary"
                 android:layout_margin="@dimen/_4sdp"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:imeOptions="actionDone"/>
 
             <EditText
                 android:id="@+id/password_confirmation_input"
@@ -136,7 +138,8 @@
                 android:backgroundTint="@color/secondary"
                 android:layout_margin="@dimen/_4sdp"
                 android:visibility="gone"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:imeOptions="actionDone"/>
 
 
 
