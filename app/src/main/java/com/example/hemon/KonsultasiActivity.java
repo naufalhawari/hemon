@@ -64,7 +64,7 @@ public class KonsultasiActivity extends AppCompatActivity {
 
         db.collection("konsultasi")
 //                .whereEqualTo("emailPengguna", preferenceManager.getString("email"))
-                .orderBy("tanggalKirim", Query.Direction.DESCENDING)
+                .orderBy("tanggalKirim", Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -83,8 +83,6 @@ public class KonsultasiActivity extends AppCompatActivity {
                                     chatAdapter.notifyDataSetChanged();
                                 }
 
-
-
                             }
 
 
@@ -101,7 +99,7 @@ public class KonsultasiActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String messageText = messageEditText.getText().toString().trim();
                 if (!messageText.isEmpty()) {
-                    sendMessage(messageText);
+                    generateSmartReplySuggestions(messageText);
                     messageEditText.setText("");
                 }
             }
@@ -109,13 +107,6 @@ public class KonsultasiActivity extends AppCompatActivity {
 
     }
 
-    private void sendMessage(String messageText) {
-
-        ChatMessage chatMessage = new ChatMessage(messageText, "user");
-        messageList.add(chatMessage);
-
-        generateSmartReplySuggestions(messageText);
-    }
 
     private void generateSmartReplySuggestions(String chatMessage) {
         conversation.add(FirebaseTextMessage.createForLocalUser(
@@ -126,7 +117,8 @@ public class KonsultasiActivity extends AppCompatActivity {
                     if (result.getStatus() == SmartReplySuggestionResult.STATUS_NOT_SUPPORTED_LANGUAGE) {
                         Toast.makeText(getApplicationContext(), "Gunakan bahasa inggris", Toast.LENGTH_SHORT).show();
                     } else if (result.getStatus() == SmartReplySuggestionResult.STATUS_SUCCESS) {
-
+                        ChatMessage userMessage = new ChatMessage(chatMessage, "user");
+                        messageList.add(userMessage);
                         messageList.add(new ChatMessage(result.getSuggestions().get(0).getText().trim(), "bot"));
                         HashMap<String, Object> data = new HashMap<>();
                         data.put("emailPengguna", preferenceManager.getString("email"));

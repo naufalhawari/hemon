@@ -76,7 +76,7 @@ public class RiwayatActivity extends AppCompatActivity {
                                     Date d = data.getTimestamp("tanggalAsesmen").toDate();
 
 
-                                    tanggalList.add(d.getDate() + "-" + d.getMonth() + "-" + d.getHours() +
+                                    tanggalList.add(d.getDate() + "-" + d.getMonth() + "-" + (d.getYear() % 100) +
                                             " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getMinutes());
 
 //                                adapter = new RiwayatAdapter(jenisList, diagnosisList, tanggalList, getApplicationContext());

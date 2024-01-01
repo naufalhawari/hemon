@@ -59,6 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/_6sdp"
         android:hint="Masukkan pesan dalam bahasa inggris"
         android:inputType="textMultiLine"
         android:maxLines="3"
@@ -70,6 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/_6sdp"
         android:text="Kirim" />
 
 </RelativeLayout>

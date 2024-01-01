@@ -20,18 +20,17 @@ public class AsesmenDiabetes extends Asesmen {
             } else {
                 return "positif";
             }
-        } else {
-            if (bmi <= 41.75) {
+        } else if (bmi <= 41.75) {
                 if (this.getTekananDarahDia() <= 63) {
                     return "negatif";
                 } else {
                     return "positif";
                 }
-            } else if (this.getTekananDarahDia() <= 12) {
-                return "positif";
-            } else {
-                return "negatif";
-            }
+        } else if (this.getTekananDarahDia() <= 12) {
+            return "positif";
+        } else {
+            return "negatif";
         }
+
     }
 }
